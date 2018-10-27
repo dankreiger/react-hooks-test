@@ -14,13 +14,10 @@ describe('InputGroup', () => {
 
   describe('structure', () => {
     let component;
+    const mockStateHook = { value: 'Wauwau', onChange: jest.fn() };
     beforeEach(() => {
       component = shallow(
-        <InputGroup
-          inputLabel="Puppy"
-          inputValue="Wauwau"
-          handleChange={jest.fn()}
-        />
+        <InputGroup inputLabel="Puppy" stateHook={mockStateHook} />
       );
     });
 

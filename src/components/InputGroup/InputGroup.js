@@ -2,11 +2,11 @@ import React from 'react';
 import { func, string } from 'prop-types';
 import { InputGroupContainer } from './styles';
 
-export default function InputGroup({ handleChange, inputLabel, inputValue }) {
+export default function InputGroup({ inputLabel, stateHook }) {
   return (
     <InputGroupContainer>
       <label>{inputLabel}</label>
-      <input onChange={handleChange} value={inputValue} />
+      <input {...stateHook} />
     </InputGroupContainer>
   );
 }

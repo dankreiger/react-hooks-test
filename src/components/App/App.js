@@ -3,19 +3,16 @@ import { AppContainer } from './styles';
 import useWindowWidth from '../../functions/useWindowWidth';
 import useDocumentTitle from '../../functions/useDocumentTitle';
 import InputGroup from '../InputGroup/InputGroup';
+import { useFormInput } from '../../functions/useFormInput';
 
 export default function App() {
-  const [name, setName] = useState('Dan');
-  const [surname, setSurname] = useState('Kreiger');
+  const name = useFormInput('Dan');
+  const surname = useFormInput('Kreiger');
+  useDocumentTitle(`${name} ${surname}`);
 
   const [count, setCount] = useState(0);
   const windowWidth = useWindowWidth();
-
-  useDocumentTitle(`${name} ${surname}`);
-
   const handleClick = () => setCount(count + 1);
-  const handleName = e => setName(e.target.value);
-  const handleSurname = e => setSurname(e.target.value);
 
   return (
     <AppContainer>
@@ -23,16 +20,8 @@ export default function App() {
       <button onClick={handleClick}>Click me</button>
       <p className="windowWidth">Window width: {windowWidth}</p>
 
-      <InputGroup
-        inputLabel="Name"
-        handleChange={handleName}
-        inputValue={name}
-      />
-      <InputGroup
-        inputLabel="Surname"
-        handleChange={handleSurname}
-        inputValue={surname}
-      />
+      <InputGroup inputLabel="Name" stateHook={name} />
+      <InputGroup inputLabel="Surname" stateHook={surname} />
     </AppContainer>
   );
 }
