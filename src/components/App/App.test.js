@@ -1,29 +1,56 @@
 import React from 'react';
 import App from './App';
-import { shallow, mount } from 'enzyme';
+import { mount, render } from 'enzyme';
 
 describe('App', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    global.innerWidth = 500;
-    wrapper = mount(<App />);
+  describe('rendering', () => {
+    let renderedComponent;
+    test('renders as expected', () => {
+      renderedComponent = render(<App />);
+      expect(renderedComponent).toBeTruthy();
+      expect(renderedComponent).toMatchSnapshot();
+    });
   });
 
-  test('renders an incremented value on button click', () => {
-    for (let i in [0, 1, 2, 3]) {
-      expect(wrapper.find('h3').text()).toBe(`You clicked ${i} times`);
-      wrapper.find('button').simulate('click');
-      wrapper.update(); // Read: enzyme update
-    }
+  describe('structure', () => {
+    let component;
+    beforeEach(() => {
+      component = mount(<App />); // Enzyme's shallow not working with React state hooks
+    });
+    test('renders 1 button html element with the text "Click me"', () => {
+      expect(component.find('button').length).toBe(1);
+      expect(component.find('button').text()).toBe('Click me');
+    });
+    test('renders 2 <InputGroup /> components', () => {
+      expect(component.find('InputGroup').length).toBe(2);
+    });
+
+    test('renders a div.windowWidth that displays the current window width information', () => {
+      expect(component.find('.windowWidth').length).toBe(1);
+      expect(component.find('.windowWidth').text()).toBe('Window width: 1024'); // 1024 is the JSDOM default
+    });
   });
 
-  test('renders the window size on resize', () => {
-    expect(wrapper.find('.windowWidth').text()).toBe('Window width: 500');
+  describe('behavior', () => {
+    let component;
+    beforeEach(() => {
+      global.innerWidth = 500;
+      component = mount(<App />); // Enzyme's shallow isn't working with state hooks
+    });
 
-    global.innerWidth = 1023;
-    wrapper = mount(<App />); // only works like this right now - .update() not working on wrapper
+    test('renders an incremented value on button click', () => {
+      for (let i in [0, 1, 2, 3]) {
+        expect(component.find('h3').text()).toBe(`You clicked ${i} times`);
+        component.find('button').simulate('click');
+        component.update(); // Read: enzyme update
+      }
+    });
 
-    expect(wrapper.find('.windowWidth').text()).toBe('Window width: 1023');
+    test('renders the window size on resize', () => {
+      expect(component.find('.windowWidth').text()).toBe('Window width: 500');
+      global.innerWidth = 1023;
+      component = mount(<App />); // only works like this right now - .update() not working on component
+      expect(component.find('.windowWidth').text()).toBe('Window width: 1023');
+    });
   });
 });
