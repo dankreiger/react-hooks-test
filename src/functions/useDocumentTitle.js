@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export default function useDocumentTitle(title) {
+export function useDocumentTitle(title) {
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     // Update the document title using the browser API

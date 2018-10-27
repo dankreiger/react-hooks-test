@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { AppContainer } from './styles';
-import useWindowWidth from '../../functions/useWindowWidth';
-import useDocumentTitle from '../../functions/useDocumentTitle';
+import { useWindowWidth } from '../../functions/useWindowWidth';
+import { useDocumentTitle } from '../../functions/useDocumentTitle';
 import InputGroup from '../InputGroup/InputGroup';
 import { useFormInput } from '../../functions/useFormInput';
 
 export default function App() {
   const name = useFormInput('Dan');
   const surname = useFormInput('Kreiger');
-  useDocumentTitle(`${name} ${surname}`);
+  useDocumentTitle(`${name.value} ${surname.value}`);
 
   const [count, setCount] = useState(0);
   const windowWidth = useWindowWidth();
