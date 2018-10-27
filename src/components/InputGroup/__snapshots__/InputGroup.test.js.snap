@@ -4,7 +4,7 @@ exports[`InputGroup rendering renders as expected 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bdVaJa bPGLpq",
+      "class": "sc-bdVaJa gdBNFs",
     },
     "children": Array [
       Object {

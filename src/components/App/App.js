@@ -33,11 +33,6 @@ export default function App() {
         handleChange={handleSurname}
         inputValue={surname}
       />
-
-      <div>
-        <label>Surname</label>
-        <input onChange={handleSurname} value={surname} />
-      </div>
     </AppContainer>
   );
 }

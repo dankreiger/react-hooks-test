@@ -23,6 +23,11 @@ describe('InputGroup', () => {
         />
       );
     });
+
+    test('renders an InputGroupContainer', () => {
+      expect(component.find('InputGroupContainer')).toBeTruthy();
+    });
+
     test('renders a label with the correct prop data', () => {
       expect(component.find('label')).toBeTruthy();
       expect(component.find('label').text()).toBe('Puppy');
